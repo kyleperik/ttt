@@ -1,0 +1,4 @@
+flask_socketio
+flask
+redis
+gevent
