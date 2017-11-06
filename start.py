@@ -40,4 +40,5 @@ def place(cell):
 def index():
     return render_template('index.jinja')
 
-io.run(app, host='0.0.0.0')
+if __name__ == '__main__':
+    io.run(app, host='0.0.0.0')
