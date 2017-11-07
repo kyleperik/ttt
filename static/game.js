@@ -16,10 +16,18 @@ function symbol(value) {
 }
 
 function set_state_at(cell, s) {
-    if (state[cell]) { return false; }
+    if (state[cell] !== undefined) { return false; }
     state[cell] = s;
     var cells = Array.from(document.querySelector('#Content').children);
-    cells.filter(e => e.dataset.cell === cell)[0].textContent = s;
+    cells.filter(e => e.dataset.cell === cell)[0].textContent = symbol(s);
+    if (check_win(isx)) {
+		document.getElementById('Block').textContent = 'You Won!';
+		document.getElementById('Block').style.display = '';
+    }
+    if (check_win(!isx)) {
+		document.getElementById('Block').textContent = 'You Lost :(';
+		document.getElementById('Block').style.display = '';
+    }
     return true;
 }
 
@@ -27,16 +35,13 @@ function piece_at(x, y) {
 	return state[x + y * 3];
 } 
 
-function check_win() {
-	wins = range(3).map(i => range(3).map(j => j + i))
-/*	col=row=diag=rdiag=0
-	winner=false
-	var col = range(9).map(i => piece_at())
-	  if cell[x,i]=player then col++
-	  if cell[i,y]=player then row++
-	  if cell[i,i]=player then diag++
-	  if cell[i,n-i+1]=player then rdiag++
-	if row=n or col=n or diag=n or rdiag=n then winner=true*/
+function check_win(s) {
+	var rows = 3;
+    return range(rows).some(i => 
+        range(rows).every(j => piece_at(j, i) === s) ||
+        range(rows).every(j => piece_at(i, j) === s)
+    ) || range(rows).every(i => piece_at(i, i) === s) ||
+	range(rows).every(i => piece_at(rows - i, rows - i) === s);
 }
 
 function init_listeners(socket) {
@@ -44,7 +49,7 @@ function init_listeners(socket) {
         e.addEventListener('click', function () {
             if (is_locked) { return; }
             socket.emit('place', e.dataset.cell);
-            if (set_state_at(e.dataset.cell, symbol(isx))) {
+            if (set_state_at(e.dataset.cell, isx)) {
                 is_locked = true;
             }
         })
@@ -66,7 +71,7 @@ function init_listeners(socket) {
 	});
 
     socket.on('place', function (cell) {
-        if (set_state_at(cell, symbol(!isx))) {
+        if (set_state_at(cell, !isx)) {
             is_locked = false;
         }
     });

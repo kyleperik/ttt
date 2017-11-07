@@ -2,6 +2,9 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	background-color: #131313;
+	margin: 0;
+	padding: 0;
 }
 
 #Block {
@@ -15,7 +18,8 @@ body {
 	justify-content: center;
 	font-size: 20px;
 	font-family: arial;
-	background-color: rgba(249, 229, 255, 0.75);
+	color: white;
+	background-color: rgba(56, 0, 73, 0.86);
 }
 
 #Content {
@@ -33,11 +37,12 @@ body {
     height: 33.33%;
     box-sizing: border-box;
     font-size: 4em;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 #Content :nth-child(3n) {
@@ -50,5 +55,4 @@ body {
 #Content :nth-child(9) {
 	border-bottom: none;
 }
-
 

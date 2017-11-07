@@ -29,6 +29,9 @@ def connect():
 @io.on('disconnect')
 def disconnect():
     room = [room for room in rooms() if room != request.sid][0]
+    open_room = db.get('open_room')
+    if open_room and int(open_room) == room:
+    	db.delete('open_room')
     print(f'{request.sid} - disconnected')
     emit('game_disconnected', room=room)
         
