@@ -12,7 +12,7 @@ function range(start, end, step) {
 }
 
 function symbol(value) {
-    return value ? 'X' : 'O';
+    return value ? '×' : '○';
 }
 
 function set_state_at(cell, s) {
@@ -21,6 +21,22 @@ function set_state_at(cell, s) {
     var cells = Array.from(document.querySelector('#Content').children);
     cells.filter(e => e.dataset.cell === cell)[0].textContent = s;
     return true;
+}
+
+function piece_at(x, y) {
+	return state[x + y * 3];
+} 
+
+function check_win() {
+	wins = range(3).map(i => range(3).map(j => j + i))
+/*	col=row=diag=rdiag=0
+	winner=false
+	var col = range(9).map(i => piece_at())
+	  if cell[x,i]=player then col++
+	  if cell[i,y]=player then row++
+	  if cell[i,i]=player then diag++
+	  if cell[i,n-i+1]=player then rdiag++
+	if row=n or col=n or diag=n or rdiag=n then winner=true*/
 }
 
 function init_listeners(socket) {
@@ -56,8 +72,8 @@ function init_listeners(socket) {
     });
 
     window.addEventListener('beforeunload', function () {
-    	socket.disconnect();
-	});
+        socket.disconnect();
+    });
 	
 	window.socket = socket;
 }
