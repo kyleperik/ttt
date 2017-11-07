@@ -18,6 +18,7 @@ def connect():
     if open_room:
         db.delete('open_room')
         emit('symbol', True, room=request.sid)
+        emit('start_game', room=room)
     else:
         emit('symbol', False, room=request.sid)
         db.set('open_room', room)
@@ -28,8 +29,10 @@ def connect():
 
 @io.on('disconnect')
 def disconnect():
+    room = [room for room in rooms() if room != request.sid][0]
     print(f'{request.sid} - disconnected')
-    
+    emit('game_disconnected', room=room)
+        
 @io.on('place')
 def place(cell):
     room = [room for room in rooms() if room != request.sid][0]
