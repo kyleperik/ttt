@@ -79,7 +79,7 @@ function init_listeners(socket) {
 }
 
 function init_socket() {
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    var socket = io.connect(location.href);
     init_listeners(socket);
     return new Promise(function (resolve, reject) {
         socket.on('connect', function() {
