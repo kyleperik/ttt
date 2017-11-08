@@ -5,10 +5,10 @@ var isx;
 var is_locked = true;
 
 function range(start, end, step) {
-  var _end = end || start;
-  var _start = end ? start : 0;
-  var _step = step || 1;
-  return Array((_end - _start) / _step).fill(0).map((v, i) => _start + (i * _step));
+    var _end = end || start;
+    var _start = end ? start : 0;
+    var _step = step || 1;
+    return Array((_end - _start) / _step).fill(0).map((v, i) => _start + (i * _step));
 }
 
 function symbol(value) {
@@ -41,7 +41,7 @@ function check_win(s) {
         range(rows).every(j => piece_at(j, i) === s) ||
         range(rows).every(j => piece_at(i, j) === s)
     ) || range(rows).every(i => piece_at(i, i) === s) ||
-	range(rows).every(i => piece_at(rows - i, rows - i) === s);
+	range(rows).every(i => piece_at(rows - i - 1, i) === s);
 }
 
 function init_listeners(socket) {

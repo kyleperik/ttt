@@ -4,6 +4,7 @@ import redis
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretfjasd'
+app.config['DEBUG'] = True
 io = SocketIO(app)
 db = redis.StrictRedis(host='localhost', port=6379, db=1)
 
