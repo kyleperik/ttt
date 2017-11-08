@@ -1,10 +1,10 @@
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
 import redis
+import sys
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretfjasd'
-app.config['DEBUG'] = True
 io = SocketIO(app)
 db = redis.StrictRedis(host='localhost', port=6379, db=1)
 
@@ -47,4 +47,5 @@ def index():
     return render_template('index.jinja')
 
 if __name__ == '__main__':
+    app.config['DEBUG'] = sys.argv[1] == 'debug'
     io.run(app, host='0.0.0.0', port=8090)
