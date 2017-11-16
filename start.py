@@ -47,5 +47,5 @@ def index():
     return render_template('index.jinja')
 
 if __name__ == '__main__':
-    app.config['DEBUG'] = sys.argv[1] == 'debug'
+    app.config['DEBUG'] = sys.argv[1] == 'debug' if len(sys.argv) > 1 else False
     io.run(app, host='0.0.0.0', port=8090)
