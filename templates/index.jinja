@@ -8,16 +8,17 @@
          var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         </script>
         <script src="{{ url_for('static', filename='game.js') }}"></script>
+        <title>Tic Tac Toe</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
         
     </head>
     <body>
-        <div id="Block">Waiting for opponent...</div>
+        <div id="Block">Waiting for opponent... (share this link to a friend)</div>
         <div id="Content">
             {% for i in range(9) %}
                 <div data-cell="{{ i }}"></div>
             {% endfor %}
         </div>
-	<a style="position: absolute; top: 0; left: 0;" href="https://github.com/kyleperik/ttt">https://github.com/kyleperik/ttt</a>
+	<a style="position: absolute; top: 0; left: 0;" href="https://github.com/kyleperik/ttt">Source Code</a>
     </body>
 </html>
